@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collins & Sage — 2025 Tax Summary | Centurion</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --midnight: #0B2038;
+    --ocean: #306E9E;
+    --ocean-light: #4D95B5;
+    --deep-sea: #1F496D;
+    --gold: #CAA977;
+    --silver: #E5E6E7;
+    --gray: #848484;
+    --white: #FFFFFF;
+    --surface: #0e2844;
+    --border: #1a3a5c;
+    --text-secondary: #a8bfd4;
+    --text-muted: #536f8a;
+    --green: #6bbf8a;
+    --red: #e07070;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--midnight);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    min-height: 100vh;
+  }
+
+  /* ── TOP NAV ── */
+  .topbar {
+    background: linear-gradient(135deg, var(--deep-sea), var(--midnight));
+    border-bottom: 1px solid rgba(202,169,119,0.3);
+    padding: 0 32px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 14px; }
+  .shield-svg { flex-shrink: 0; }
+  .wordmark {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+  }
+  .topbar-right { text-align: right; }
+  .topbar-right .doc-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--white);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .topbar-right .confidential {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2px;
+    opacity: 0.85;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    padding: 48px 32px 36px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .page-header h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 42px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .page-header .subhead {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+  }
+  .gold-rule { width: 48px; height: 2px; background: var(--gold); border-radius: 1px; }
+
+  /* ── MAIN CONTENT ── */
+  .content { max-width: 960px; margin: 0 auto; padding: 0 32px 64px; }
+
+  /* ── COLUMN HEADERS ── */
+  .col-headers {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px 110px;
+    padding: 8px 16px 8px 20px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .col-headers span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .col-headers span:not(:first-child) { text-align: right; }
+
+  /* ── ACCORDION ── */
+  .section { margin-bottom: 6px; }
+  .section-header {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px 110px;
+    padding: 12px 16px 12px 16px;
+    background: var(--surface);
+    border-left: 3px solid var(--gold);
+    cursor: pointer;
+    user-select: none;
+    align-items: center;
+    transition: background 0.15s;
+    border-radius: 2px;
+  }
+  .section-header:hover { background: #122f50; }
+  .section-header.open { border-radius: 2px 2px 0 0; }
+  .section-title-group { display: flex; align-items: center; gap: 10px; }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .chevron {
+    width: 16px; height: 16px;
+    fill: none; stroke: var(--gold); stroke-width: 2;
+    stroke-linecap: round; stroke-linejoin: round;
+    transition: transform 0.2s ease; flex-shrink: 0;
+  }
+  .open .chevron { transform: rotate(90deg); }
+  .section-total {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--white);
+    text-align: right;
+  }
+  .section-total.red-val { color: var(--red); }
+  .section-total.muted { color: var(--text-muted); }
+
+  /* ── ROWS CONTAINER ── */
+  .rows-container {
+    display: none;
+    border-left: 3px solid var(--gold);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    border-radius: 0 0 2px 2px;
+    overflow: hidden;
+  }
+  .rows-container.open { display: block; }
+
+  .data-row {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px 110px;
+    padding: 9px 16px 9px 20px;
+    border-bottom: 1px solid rgba(26,58,92,0.5);
+    align-items: center;
+  }
+  .data-row:last-child { border-bottom: none; }
+  .data-row:nth-child(even) { background: rgba(14,40,68,0.4); }
+  .data-row.highlight {
+    background: rgba(202,169,119,0.08);
+    border-top: 1px solid rgba(202,169,119,0.15);
+    border-bottom: 1px solid rgba(202,169,119,0.15);
+  }
+  .data-row.highlight-red {
+    background: rgba(224,112,112,0.08);
+    border-top: 1px solid rgba(224,112,112,0.2);
+    border-bottom: 1px solid rgba(224,112,112,0.2);
+  }
+
+  .row-label { font-size: 13px; color: var(--text-secondary); font-weight: 400; }
+  .row-label.bold {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--white);
+    letter-spacing: 0.04em;
+  }
+  .row-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--white);
+    text-align: right;
+  }
+  .row-val.gold-val { color: var(--gold); }
+  .row-val.red-val { color: var(--red); }
+  .row-val.muted-val { color: var(--text-muted); font-size: 13px; }
+  .row-val.prev { color: var(--text-secondary); font-weight: 400; }
+
+  /* ── DIFF BADGES ── */
+  .diff {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    text-align: right;
+  }
+  .diff.up { color: var(--green); }
+  .diff.down { color: var(--red); }
+  .diff.flat { color: var(--text-muted); }
+
+  /* ── SUMMARY CARDS ── */
+  .summary-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 32px; }
+  .card { background: var(--surface); border-radius: 4px; overflow: hidden; border: 1px solid var(--border); }
+  .card-stripe { height: 4px; }
+  .card-stripe.red { background: var(--red); }
+  .card-stripe.blue { background: var(--ocean-light); }
+  .card-stripe.gold { background: var(--gold); }
+  .card-body { padding: 20px 20px 22px; }
+  .card-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .card-value { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 32px; line-height: 1; margin-bottom: 4px; }
+  .card-value.red { color: var(--red); }
+  .card-value.blue { color: var(--ocean-light); }
+  .card-value.gold { color: var(--gold); }
+  .card-sub { font-size: 12px; color: var(--text-muted); font-weight: 300; }
+  .card-yoy { font-size: 11px; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; margin-top: 6px; }
+  .card-yoy.up { color: var(--red); } /* more tax owed = bad */
+  .card-yoy.down { color: var(--green); } /* less owed = good */
+  .card-yoy.rate-up { color: var(--red); }
+  .card-yoy.rate-down { color: var(--green); }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+    padding: 20px 32px;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-left { display: flex; align-items: center; gap: 10px; }
+  .footer-wordmark {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+  .footer-right { font-size: 11px; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── QUARTERLY TABLE ── */
+  .quarterly-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 9px 20px;
+    border-bottom: 1px solid rgba(26,58,92,0.5);
+    align-items: center;
+  }
+  .quarterly-row.header-row { background: rgba(202,169,119,0.05); border-bottom: 1px solid rgba(202,169,119,0.15); }
+  .quarterly-row .q-label { font-size: 13px; color: var(--text-secondary); }
+  .quarterly-row .q-due { font-size: 12px; color: var(--text-muted); text-align: center; }
+  .quarterly-row .q-amount { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 14px; color: var(--gold); text-align: right; }
+  .quarterly-row .col-hdr { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .quarterly-row .col-hdr:nth-child(2) { text-align: center; }
+  .quarterly-row .col-hdr:last-child { text-align: right; }
+
+  @media (max-width: 640px) {
+    .col-headers, .section-header, .data-row { grid-template-columns: 1fr 80px 80px 72px; }
+    .topbar { padding: 0 16px; }
+    .page-header, .content { padding-left: 16px; padding-right: 16px; }
+    .summary-cards { grid-template-columns: 1fr; }
+    .page-header h1 { font-size: 28px; }
+    .wordmark { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ TOP NAV ══ -->
+<nav class="topbar">
+  <div class="topbar-left">
+    <svg class="shield-svg" width="36" height="42" viewBox="0 0 36 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 2L3 8.5V20C3 29.4 9.6 38.1 18 40C26.4 38.1 33 29.4 33 20V8.5L18 2Z" fill="none" stroke="#CAA977" stroke-width="1.8"/>
+      <path d="M12 18L16.5 22.5L24 15" stroke="#CAA977" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="10" y1="13" x2="26" y2="13" stroke="#CAA977" stroke-width="1" opacity="0.4"/>
+      <line x1="10" y1="28" x2="26" y2="28" stroke="#CAA977" stroke-width="1" opacity="0.4"/>
+    </svg>
+    <span class="wordmark">CENTURION</span>
+  </div>
+  <div class="topbar-right">
+    <div class="doc-title">Federal Tax Summary — 2025</div>
+    <div class="confidential">Confidential Client Document</div>
+  </div>
+</nav>
+
+<!-- ══ PAGE HEADER ══ -->
+<header class="page-header">
+  <div class="eyebrow">Federal Income Tax Summary · Tax Year 2025</div>
+  <h1>James Collins &amp; Jaime Sage</h1>
+  <div class="subhead">Year-over-Year Comparison — 2025 vs. 2024</div>
+  <div class="gold-rule"></div>
+</header>
+
+<!-- ══ MAIN CONTENT ══ -->
+<main class="content">
+
+  <!-- Column Headers -->
+  <div class="col-headers">
+    <span>Line Item</span>
+    <span>2025</span>
+    <span>2024</span>
+    <span>Change</span>
+  </div>
+
+  <!-- ── 1. INCOME ── -->
+  <div class="section">
+    <div class="section-header open" onclick="toggle(this)">
+      <div class="section-title-group">
+        <svg class="chevron" viewBox="0 0 16 16"><polyline points="6 3 11 8 6 13"/></svg>
+        <span class="section-title">Income</span>
+      </div>
+      <div class="section-total">$1,236,643</div>
+      <div class="section-total muted">$502,320</div>
+      <div class="diff up">+$734,323</div>
+    </div>
+    <div class="rows-container open">
+      <div class="data-row">
+        <span class="row-label">Wages, Salaries, Tips, Etc.</span>
+        <span class="row-val">$324,712</span>
+        <span class="row-val prev">$311,587</span>
+        <span class="diff up">+$13,125</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Interest Income</span>
+        <span class="row-val">$43</span>
+        <span class="row-val prev">$10,836</span>
+        <span class="diff down">−$10,793</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Dividend Income</span>
+        <span class="row-val">$519</span>
+        <span class="row-val prev muted-val">—</span>
+        <span class="diff flat">—</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Capital Gain or Loss</span>
+        <span class="row-val">$186,429</span>
+        <span class="row-val prev">$162,750</span>
+        <span class="diff up">+$23,679</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Rent, Royalty, Partnership, S-Corp, Trust</span>
+        <span class="row-val">$724,940</span>
+        <span class="row-val prev">$17,147</span>
+        <span class="diff up">+$707,793</span>
+      </div>
+      <div class="data-row highlight">
+        <span class="row-label bold">Total Income</span>
+        <span class="row-val gold-val">$1,236,643</span>
+        <span class="row-val prev">$502,320</span>
+        <span class="diff up">+$734,323</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2. ADJUSTMENTS ── -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-title-group">
+        <svg class="chevron" viewBox="0 0 16 16"><polyline points="6 3 11 8 6 13"/></svg>
+        <span class="section-title">Adjustments to Income</span>
+      </div>
+      <div class="section-total">($36,731)</div>
+      <div class="section-total muted">($32,236)</div>
+      <div class="diff down">+$4,495</div>
+    </div>
+    <div class="rows-container">
+      <div class="data-row">
+        <span class="row-label">Self-Employed Health Insurance</span>
+        <span class="row-val">$36,731</span>
+        <span class="row-val prev">$32,236</span>
+        <span class="diff up">+$4,495</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label bold">Total Adjustments</span>
+        <span class="row-val">$36,731</span>
+        <span class="row-val prev">$32,236</span>
+        <span class="diff up">+$4,495</span>
+      </div>
+      <div class="data-row highlight">
+        <span class="row-label bold">Adjusted Gross Income</span>
+        <span class="row-val gold-val">$1,199,912</span>
+        <span class="row-val prev">$470,084</span>
+        <span class="diff up">+$729,828</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3. ITEMIZED DEDUCTIONS ── -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-title-group">
+        <svg class="chevron" viewBox="0 0 16 16"><polyline points="6 3 11 8 6 13"/></svg>
+        <span class="section-title">Itemized Deductions</span>
+      </div>
+      <div class="section-total">$37,920</div>
+      <div class="section-total muted">$52,586</div>
+      <div class="diff down">−$14,666</div>
+    </div>
+    <div class="rows-container">
+      <div class="data-row">
+        <span class="row-label">Taxes (SALT)</span>
+        <span class="row-val">$10,000</span>
+        <span class="row-val prev muted-val">—</span>
+        <span class="diff flat">—</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Mortgage Interest</span>
+        <span class="row-val">$27,620</span>
+        <span class="row-val prev muted-val">—</span>
+        <span class="diff flat">—</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Charitable Contributions</span>
+        <span class="row-val">$300</span>
+        <span class="row-val prev muted-val">—</span>
+        <span class="diff flat">—</span>
+      </div>
+      <div class="data-row highlight">
+        <span class="row-label bold">Total Itemized Deductions</span>
+        <span class="row-val gold-val">$37,920</span>
+        <span class="row-val prev">$52,586</span>
+        <span class="diff down">−$14,666</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 4. TAX COMPUTATION ── -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-title-group">
+        <svg class="chevron" viewBox="0 0 16 16"><polyline points="6 3 11 8 6 13"/></svg>
+        <span class="section-title">Tax Computation</span>
+      </div>
+      <div class="section-total">$322,221</div>
+      <div class="section-total muted">$71,638</div>
+      <div class="diff up">+$250,583</div>
+    </div>
+    <div class="rows-container">
+      <div class="data-row">
+        <span class="row-label">Standard Deduction</span>
+        <span class="row-val">$31,500</span>
+        <span class="row-val prev">$29,200</span>
+        <span class="diff up">+$2,300</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Larger of Itemized or Standard Deduction</span>
+        <span class="row-val">$37,920</span>
+        <span class="row-val prev">$52,586</span>
+        <span class="diff down">−$14,666</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Qualified Business Income (QBI) Deduction</span>
+        <span class="row-val">$7</span>
+        <span class="row-val prev muted-val">—</span>
+        <span class="diff flat">—</span>
+      </div>
+      <div class="data-row highlight">
+        <span class="row-label bold">Taxable Income</span>
+        <span class="row-val gold-val">$1,161,985</span>
+        <span class="row-val prev">$417,498</span>
+        <span class="diff up">+$744,487</span>
+      </div>
+      <div class="data-row highlight">
+        <span class="row-label bold">Tax Before Credits</span>
+        <span class="row-val gold-val">$322,221</span>
+        <span class="row-val prev">$71,638</span>
+        <span class="diff up">+$250,583</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 5. CREDITS & OTHER TAXES ── -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-title-group">
+        <svg class="chevron" viewBox="0 0 16 16"><polyline points="6 3 11 8 6 13"/></svg>
+        <span class="section-title">Credits &amp; Other Taxes</span>
+      </div>
+      <div class="section-total">$322,820</div>
+      <div class="section-total muted">$71,711</div>
+      <div class="diff up">+$251,109</div>
+    </div>
+    <div class="rows-container">
+      <div class="data-row">
+        <span class="row-label">Child Tax / Other Dependent Credits</span>
+        <span class="row-val muted-val">$0</span>
+        <span class="row-val prev">$450</span>
+        <span class="diff down">−$450</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Other Credits (Schedule 3)</span>
+        <span class="row-val muted-val">$0</span>
+        <span class="row-val prev">—</span>
+        <span class="diff flat">—</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label bold">Tax After Credits</span>
+        <span class="row-val">$322,221</span>
+        <span class="row-val prev">$71,188</span>
+        <span class="diff up">+$251,033</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Other Taxes (SE Tax / NIIT)</span>
+        <span class="row-val">$599</span>
+        <span class="row-val prev">$523</span>
+        <span class="diff up">+$76</span>
+      </div>
+      <div class="data-row highlight">
+        <span class="row-label bold">Total Tax</span>
+        <span class="row-val gold-val">$322,820</span>
+        <span class="row-val prev">$71,711</span>
+        <span class="diff up">+$251,109</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 6. PAYMENTS & WITHHOLDING ── -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-title-group">
+        <svg class="chevron" viewBox="0 0 16 16"><polyline points="6 3 11 8 6 13"/></svg>
+        <span class="section-title">Payments &amp; Withholding</span>
+      </div>
+      <div class="section-total">$302,942</div>
+      <div class="section-total muted">$64,912</div>
+      <div class="diff up">+$238,030</div>
+    </div>
+    <div class="rows-container">
+      <div class="data-row">
+        <span class="row-label">Federal Income Tax Withheld (W-2)</span>
+        <span class="row-val">$36,317</span>
+        <span class="row-val prev">$34,025</span>
+        <span class="diff up">+$2,292</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Estimated Tax Payments / Extension Payment</span>
+        <span class="row-val">$265,881</span>
+        <span class="row-val prev">$29,678</span>
+        <span class="diff up">+$236,203</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Excess FICA / RRTA Tax Withheld</span>
+        <span class="row-val">$744</span>
+        <span class="row-val prev muted-val">—</span>
+        <span class="diff flat">—</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Other Refundable Credits (Schedule 3)</span>
+        <span class="row-val muted-val">—</span>
+        <span class="row-val prev">$1,209</span>
+        <span class="diff down">−$1,209</span>
+      </div>
+      <div class="data-row highlight">
+        <span class="row-label bold">Total Payments</span>
+        <span class="row-val gold-val">$302,942</span>
+        <span class="row-val prev">$64,912</span>
+        <span class="diff up">+$238,030</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 7. BALANCE DUE ── -->
+  <div class="section">
+    <div class="section-header open" onclick="toggle(this)">
+      <div class="section-title-group">
+        <svg class="chevron" viewBox="0 0 16 16"><polyline points="6 3 11 8 6 13"/></svg>
+        <span class="section-title">Balance Due</span>
+      </div>
+      <div class="section-total red-val">$22,429</div>
+      <div class="section-total muted">$6,799</div>
+      <div class="diff up">+$15,630</div>
+    </div>
+    <div class="rows-container open">
+      <div class="data-row">
+        <span class="row-label">Overpaid / Refund</span>
+        <span class="row-val muted-val">—</span>
+        <span class="row-val prev muted-val">—</span>
+        <span class="diff flat">—</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Applied to Next Year</span>
+        <span class="row-val muted-val">—</span>
+        <span class="row-val prev muted-val">—</span>
+        <span class="diff flat">—</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Underpayment Penalty</span>
+        <span class="row-val red-val">$1,939</span>
+        <span class="row-val prev muted-val">—</span>
+        <span class="diff up">+$1,939</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Tax Due Before Penalties</span>
+        <span class="row-val red-val">$21,817</span>
+        <span class="row-val prev">$6,799</span>
+        <span class="diff up">+$15,018</span>
+      </div>
+      <div class="data-row">
+        <span class="row-label">Interest (Stmt. 1)</span>
+        <span class="row-val red-val">$612</span>
+        <span class="row-val prev muted-val">—</span>
+        <span class="diff up">+$612</span>
+      </div>
+      <div class="data-row highlight-red">
+        <span class="row-label bold">Grand Total Tax Due</span>
+        <span class="row-val red-val">$22,429</span>
+        <span class="row-val prev">$6,799</span>
+        <span class="diff up">+$15,630</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 8. ESTIMATED TAX SCHEDULE ── -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-title-group">
+        <svg class="chevron" viewBox="0 0 16 16"><polyline points="6 3 11 8 6 13"/></svg>
+        <span class="section-title">Estimated Tax Schedule</span>
+      </div>
+      <div class="section-total muted">2026</div>
+      <div class="section-total muted"></div>
+      <div class="diff flat"></div>
+    </div>
+    <div class="rows-container">
+      <div class="quarterly-row header-row">
+        <span class="col-hdr">Quarter</span>
+        <span class="col-hdr">Due Date</span>
+        <span class="col-hdr">Estimated Payment</span>
+      </div>
+      <div class="quarterly-row">
+        <span class="q-label">Q1 2026</span>
+        <span class="q-due">April 15, 2026</span>
+        <span class="q-amount">$79,697</span>
+      </div>
+      <div class="quarterly-row">
+        <span class="q-label">Q2 2026</span>
+        <span class="q-due">June 16, 2026</span>
+        <span class="q-amount">$79,697</span>
+      </div>
+      <div class="quarterly-row">
+        <span class="q-label">Q3 2026</span>
+        <span class="q-due">September 15, 2026</span>
+        <span class="q-amount">$79,697</span>
+      </div>
+      <div class="quarterly-row">
+        <span class="q-label">Q4 2026</span>
+        <span class="q-due">January 15, 2027</span>
+        <span class="q-amount">$79,697</span>
+      </div>
+      <div style="padding:10px 20px 12px; border-top:1px solid rgba(202,169,119,0.12);">
+        <span style="font-size:12px; color:var(--text-muted);">Total 2026 estimated payments: $318,788 · Equal quarterly installments</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SUMMARY CARDS ══ -->
+  <div class="summary-cards">
+    <div class="card">
+      <div class="card-stripe red"></div>
+      <div class="card-body">
+        <div class="card-label">Amount Due</div>
+        <div class="card-value red">$22,429</div>
+        <div class="card-sub">Incl. $1,939 penalty + $612 interest</div>
+        <div class="card-yoy up">▲ $15,630 vs. 2024 ($6,799)</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-stripe blue"></div>
+      <div class="card-body">
+        <div class="card-label">Effective Tax Rate</div>
+        <div class="card-value blue">27.8%</div>
+        <div class="card-sub">37% marginal bracket · AGI $1,199,912</div>
+        <div class="card-yoy rate-up">▲ +10.6 pts vs. 2024 (17.2%)</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-stripe gold"></div>
+      <div class="card-body">
+        <div class="card-label">Quarterly Estimate</div>
+        <div class="card-value gold">$79,697</div>
+        <div class="card-sub">Per quarter · $318,788 total for 2026</div>
+        <div class="card-yoy" style="color:var(--text-muted);">Q1 due Apr 15 · Q2 Jun 16 · Q3 Sep 15</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="footer-left">
+    <svg width="22" height="26" viewBox="0 0 36 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 2L3 8.5V20C3 29.4 9.6 38.1 18 40C26.4 38.1 33 29.4 33 20V8.5L18 2Z" fill="none" stroke="#CAA977" stroke-width="1.8" opacity="0.6"/>
+      <path d="M12 18L16.5 22.5L24 15" stroke="#CAA977" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+    </svg>
+    <span class="footer-wordmark">CENTURION</span>
+  </div>
+  <div class="footer-right">Confidential — For Client Use Only</div>
+</footer>
+
+<script>
+function toggle(header) {
+  const container = header.nextElementSibling;
+  const isOpen = header.classList.contains('open');
+  header.classList.toggle('open', !isOpen);
+  container.classList.toggle('open', !isOpen);
+}
+</script>
+
+</body>
+</html>
